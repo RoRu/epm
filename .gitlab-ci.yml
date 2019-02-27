@@ -1,7 +1,6 @@
 image: ${CI_REGISTRY_IMAGE}:latest
 
 stages:
-  - build-epm
   - build-package
   - test
 
@@ -21,21 +20,19 @@ stages:
 #    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME} .
 #    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}
 
-build-epm:
-  stage: build-epm
-  script:
-    - ./configure
-    - make
-    - make install
 
 build-package:
   stage: build-package
+  before_script:
+    - ./configure
+    - make
+    - make install
   script:
     - epm -v -n -m epm-package -f deb epm epm.list
     - epm -v -n -m epm-package -f rpm epm epm.list
   artifacts:
     paths:
-      - /root/epm/epm-package
+      - epm-package/
 
 test:ubuntu:
     stage: test
