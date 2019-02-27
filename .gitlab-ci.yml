@@ -1,0 +1,18 @@
+stages:
+  - build-image
+
+build-image:
+  stage: build-image
+  image: docker
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: "tcp://docker:2375"
+    DOCKER_DRIVER: overlay2
+  before_script:
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} registry.gitlab.com
+  after_script:
+    - docker logout registry.gitlab.com
+  script:
+    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME} .
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}
