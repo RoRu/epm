@@ -7,3 +7,6 @@ RUN apt-get update && apt-get install -y \
     rpm \
     && apt-get autoclean
 ADD . .
+RUN ./configure \
+    && make \
+    && make install
