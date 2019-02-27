@@ -6,7 +6,4 @@ RUN apt-get update && apt-get install -y \
     git \
     rpm \
     && apt-get autoclean
-ADD . .
-RUN ./configure \
-    && make \
-    && make install
+
