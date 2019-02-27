@@ -23,6 +23,7 @@ build-package:
   image: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}
   stage: build-package
   script:
+    - cd /root/epm
     - epm -v -n -m epm-package -f deb epm epm.list
     - epm -v -n -m epm-package -f rpm epm epm.list
   artifacts:
