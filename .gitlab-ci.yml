@@ -1,5 +1,3 @@
-image: ${CI_REGISTRY_IMAGE}:latest
-
 stages:
   - build-package
   - test
@@ -22,6 +20,7 @@ stages:
 
 
 build-package:
+  image: ${CI_REGISTRY_IMAGE}:latest
   stage: build-package
   before_script:
     - ./configure
@@ -34,7 +33,8 @@ build-package:
     paths:
       - epm-package/
 
-test:ubuntu:
+test:debian:
+    image: debian:latest
     stage: test
     dependencies:
       - build-package
@@ -47,6 +47,7 @@ test:ubuntu:
       - epm --version
 
 test:centos:
+    image: centos:latest
     stage: test
     dependencies:
       - build-package
