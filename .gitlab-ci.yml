@@ -24,7 +24,6 @@ stages:
 build-epm:
   stage: build-epm
   script:
-    - cd /root/epm
     - ./configure
     - make
     - make install
@@ -32,7 +31,6 @@ build-epm:
 build-package:
   stage: build-package
   script:
-    - cd /root/epm
     - epm -v -n -m epm-package -f deb epm epm.list
     - epm -v -n -m epm-package -f rpm epm epm.list
   artifacts:
