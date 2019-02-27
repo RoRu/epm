@@ -40,7 +40,8 @@ test:ubuntu:
       - build-package
     before_script:
       - pwd
-      - tar -xvf epm-4.4.1-epm-package.deb.tgz
+      - ls -la
+      - tar -xvf epm-package/epm-4.4.1-epm-package.deb.tgz
     script:
       - dpkg -i epm-4.4.1-epm-package.deb epm-documentation-4.4.1-epm-package.deb epm-man-4.4.1-epm-package.deb
       - epm --version
