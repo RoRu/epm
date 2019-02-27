@@ -2,23 +2,6 @@ stages:
   - build-package
   - test
 
-#build-image:
-#  stage: build-image
-#  image: docker
-#  services:
-#    - docker:dind
-#  variables:
-#    DOCKER_HOST: "tcp://docker:2375"
-#    DOCKER_DRIVER: overlay2
-#  before_script:
-#    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} registry.gitlab.com
-#  after_script:
-#    - docker logout registry.gitlab.com
-#  script:
-#    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME} .
-#    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}
-
-
 build-package:
   image: ${CI_REGISTRY_IMAGE}:latest
   stage: build-package
@@ -39,9 +22,7 @@ test:debian:
     dependencies:
       - build-package
     before_script:
-      - pwd
-      - ls -la
-      - tar -xvf epm-package/epm-4.4.1-epm-package.deb.tgz
+      - tar -xf epm-package/epm-4.4.1-epm-package.deb.tgz
     script:
       - dpkg -i epm-4.4.1-epm-package.deb epm-documentation-4.4.1-epm-package.deb epm-man-4.4.1-epm-package.deb
       - epm --version
@@ -52,9 +33,7 @@ test:centos:
     dependencies:
       - build-package
     before_script:
-      - pwd
-      - ls -la
-      - tar -xvf epm-package/epm-4.4.1-epm-package.rpm.tgz
+      - tar -xf epm-package/epm-4.4.1-epm-package.rpm.tgz
     script:
       - rpm -i epm-4.4.1-epm-package.rpm epm-documentation-4.4.1-epm-package.rpm epm-man-4.4.1-epm-package.rpm
       - epm --version
