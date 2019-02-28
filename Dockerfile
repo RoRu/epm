@@ -2,8 +2,8 @@ FROM debian:stretch-slim
 
 WORKDIR /root/epm
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
+    gcc \
+    make \
     rpm \
     && apt-get autoclean
 
